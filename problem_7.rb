@@ -1,5 +1,5 @@
-@primes = [2, 3, 5, 7, 11, 13]
-@count = 14
+primes = [2, 3, 5, 7, 11, 13]
+count = 14
 
 class Fixnum
   def divisible?
@@ -20,13 +20,13 @@ class Fixnum
   end
 end
 
-while @primes.length < 8
-  if @count.divisible?
-    @count + 1
+while primes.length < 10001
+  if count.divisible?
+    count += 1
   else
-    @primes << count
-    @count + 1
+    primes << count
+    count += 1
   end
 end
 
-puts @primes.last
+puts primes.last
