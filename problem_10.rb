@@ -22,3 +22,4 @@ while @i < 2_000_000
 end
 
 puts @primes.inject(&:+)
+Problem 10
