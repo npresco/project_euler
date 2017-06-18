@@ -30,22 +30,61 @@ while k < 20
   k += 1
 end
 
-left_right_prods = []
-left_right.each do |row|
-  row.each_cons(4) do |x|
-    left_right_prods << x.inject(&:*)
+@left_right = left_right
+def make_diagonal_row(start_row, start_column)
+  diag = []
+  a = (start_column..start_row).to_a
+  b = a.reverse
+  c = b.zip(a)
+  c.each do |d|
+    diag << @left_right[d[0]][d[1]]
+  end
+  diag
+end
+
+def make_diagonal_row_up(start_row, start_column)
+  diag = []
+  b = (0..start_column).to_a.reverse
+  a = ((start_row - start_column)..start_row).to_a.reverse
+  c = a.zip(b)
+  c.each do |d|
+    diag << @left_right[d[0]][d[1]]
+  end
+  diag
+end
+
+left_diag = []
+m = 3
+until m == 19
+  left_diag << make_diagonal_row_up(19, m)
+  m += 1
+end
+
+n = 19
+until n == 3
+  left_diag << make_diagonal_row_up(n, 19)
+  n -= 1
+end
+
+right_diag = []
+k = 3
+until k == 19
+  right_diag << make_diagonal_row(k, 0)
+  k += 1
+end
+j = 1
+until j == 16
+  right_diag << make_diagonal_row(19, j)
+  j += 1
+end
+
+@prods = []
+[left_diag, right_diag, up_down, left_right].each do |diag|
+  diag.each do |row|
+    row.each_cons(4) do |x|
+      @prods << x.inject(&:*)
+    end
   end
 end
 
-p left_right_prods.sort.last
-
-up_down_prods = []
-up_down.each do |column|
-  column.each_cons(4) do |x|
-    up_down_prods << x.inject(&:*)
-  end
-end
-
-p up_down_prods.sort.last
-
-p [left_right[3][0], left_right[2][1], left_right[1][2], left_right[0][3]]
+p @prods.sort.last
