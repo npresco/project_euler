@@ -30,4 +30,22 @@ while k < 20
   k += 1
 end
 
-p up_down.last
+left_right_prods = []
+left_right.each do |row|
+  row.each_cons(4) do |x|
+    left_right_prods << x.inject(&:*)
+  end
+end
+
+p left_right_prods.sort.last
+
+up_down_prods = []
+up_down.each do |column|
+  column.each_cons(4) do |x|
+    up_down_prods << x.inject(&:*)
+  end
+end
+
+p up_down_prods.sort.last
+
+p [left_right[3][0], left_right[2][1], left_right[1][2], left_right[0][3]]
